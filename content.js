@@ -25,18 +25,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       "activitat200562",
       "activitat200566",
     ];
-    
+
     // Filter options with hours (they have a distinct id) and not in blacklist
     options.forEach(option => {
-      if(option.hasAttribute('id') && option.getAttribute('id').match(/activitat\d{5}/)){
-        if(blackList.indexOf(option.getAttribute('id')) === -1){
+      if (option.hasAttribute('id') && option.getAttribute('id').match(/activitat\d{5}/)) {
+        if (blackList.indexOf(option.getAttribute('id')) === -1) {
           validOptions.push(option.querySelector('.form-control'));
-        }        
+        }
       }
     });
 
     populateOptions(validOptions);
-    
+
   }
 });
 
@@ -53,17 +53,17 @@ function populateOptions(options) {
   while (hoursPopulated < hoursToPopulate) {
     const option = pickOne(options);
 
-    if(option !== null && option.value == 0){
+    if (option !== null && option.value == 0) {
       const randomHour = Math.floor(Math.random() * option.options.length);
       const chosenHourAmmount = parseFloat(option.item(randomHour).value);
-      if(chosenHourAmmount <= maxHoursPerOption && chosenHourAmmount + hoursPopulated <= hoursToPopulate){
+      if (chosenHourAmmount <= maxHoursPerOption && chosenHourAmmount + hoursPopulated <= hoursToPopulate) {
         option.selectedIndex = randomHour;
         hoursPopulated += chosenHourAmmount;
       }
-    }    
-  }  
+    }
+  }
 }
 
-function pickOne(array){
+function pickOne(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
