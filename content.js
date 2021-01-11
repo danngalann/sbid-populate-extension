@@ -28,7 +28,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     // Filter options with hours (they have a distinct id) and not in blacklist
     options.forEach(option => {
-      if (option.hasAttribute('id') && option.getAttribute('id').match(/activitat\d{5}/)) {
+      if (option.hasAttribute('id') && option.getAttribute('id').match(/activitat\d{5,}/)) {
         if (blackList.indexOf(option.getAttribute('id')) === -1) {
           validOptions.push(option.querySelector('.form-control'));
         }
