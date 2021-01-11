@@ -2,12 +2,34 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request == "populate") {
     const options = document.querySelectorAll("#workingForm > div.panel.panel-default > div.panel-body > div.panel.panel-default > div.panel-body > div");
     let validOptions = [];
-    const blackList = [];
+    const blackList = [
+      "activitat24446",
+      "activitat24447",
+      "activitat24452",
+      "activitat24453",
+      "activitat24454",
+      "activitat24455",
+      "activitat24457",
+      "activitat24459",
+      "activitat24460",
+      "activitat24461",
+      "activitat24462",
+      "activitat24466",
+      "activitat24467",
+      "activitat24468",
+      "activitat24469",
+      "activitat200557",
+      "activitat200558",
+      "activitat200559",
+      "activitat200561",
+      "activitat200562",
+      "activitat200566",
+    ];
     
     // Filter options with hours (they have a distinct id) and not in blacklist
     options.forEach(option => {
       if(option.hasAttribute('id') && option.getAttribute('id').match(/activitat\d{5}/)){
-        if(!(option.getAttribute('id') in blackList)){
+        if(blackList.indexOf(option.getAttribute('id')) === -1){
           validOptions.push(option.querySelector('.form-control'));
         }        
       }
@@ -37,7 +59,6 @@ function populateOptions(options) {
       if(chosenHourAmmount <= maxHoursPerOption && chosenHourAmmount + hoursPopulated <= hoursToPopulate){
         option.selectedIndex = randomHour;
         hoursPopulated += chosenHourAmmount;
-        console.log(hoursPopulated, chosenHourAmmount)
       }
     }    
   }  
